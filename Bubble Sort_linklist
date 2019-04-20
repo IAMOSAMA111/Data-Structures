@@ -1,0 +1,74 @@
+#include <iostream>
+
+using namespace std;
+
+struct Node{
+  int num;
+  Node * nextlocation;
+}*head;
+void display(){
+  Node * address = head;
+  while(address != NULL){
+    cout<<address->num<<endl;
+    address = address->nextlocation;
+  }
+}
+void addNum(){
+  Node * address = head;
+  Node *newNode = new Node;
+  cout<<"Enter a number"<<endl;
+  cin>>newNode->num;
+  newNode->nextlocation= NULL;
+  if(head == NULL){
+    head = newNode;
+  }
+  else{
+    while(address->nextlocation != NULL){
+      address=address->nextlocation;
+    }
+    address->nextlocation=newNode;
+  }
+}
+
+
+void bubbleSort(){
+  Node * p = head;
+  Node *q = head->nextlocation;
+  int temp;
+  while(p->nextlocation!= NULL){
+    q=p->nextlocation;
+    while(q!=NULL){
+      if(p->num >q->num){
+        temp=p->num;
+        p->num=q->num;
+        q->num=temp;
+      }
+      q=q->nextlocation;
+    }
+    p=p->nextlocation;
+  }
+
+}
+
+
+ int main(){
+  int choice;
+  do{
+    cout<<"Enter 1 to add number"<<endl;
+    cout<<"Enter 2 dispaly"<<endl;
+    cout<<"Enter 0 to exit"<<endl;
+    cin>>choice;
+    switch(choice){
+      case 1:{
+          addNum();
+          break;
+      }
+      case 2:{
+          bubbleSort();
+          display();
+          break;
+        }
+    }
+
+  }while(choice !=0);
+}
