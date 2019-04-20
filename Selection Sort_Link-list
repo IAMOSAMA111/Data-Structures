@@ -1,0 +1,82 @@
+#include<iostream>
+using namespace std;
+
+struct Node{
+  int num;
+  Node * nextlocation;
+}*head;
+
+void display(){
+  Node * address = head;
+  while(address != NULL){
+    cout<<address->num<<endl;
+    address = address->nextlocation;
+  }
+}
+
+void addNum(){
+  Node * address = head;
+  Node *newNode = new Node;
+  cout<<"Enter a number"<<endl;
+  cin>>newNode->num;
+  newNode->nextlocation= NULL;
+  if(head == NULL){
+    head = newNode;
+  }
+  else{
+    while(address->nextlocation != NULL){
+      address=address->nextlocation;
+    }
+    address->nextlocation=newNode;
+  }
+}
+
+void selectionSortLinklist(){
+    Node *p=head;
+    Node * q= p->nextlocation;
+    Node * index=head;
+    int temp;
+    bool flag=false;
+    while(p->nextlocation !=NULL){
+      q=p->nextlocation;
+      while(q!=NULL){
+        if(index->num > q->num){
+          index=q;
+          flag=true;
+        }
+          q=q->nextlocation;
+      }
+      if(flag == true){
+      temp = index->num;
+      index->num = p->num;
+      p->num=temp;
+    }
+    p=p->nextlocation;
+    index=p;
+    flag=false;
+  }
+}
+
+int main(){
+  int choice;
+
+  do{
+      cout<<"Enter 1 to add number"<<endl;
+      cout<<"Enter 2 to display number in sorting order"<<endl;
+      cout<<"Enter 0 to exit"<<endl;
+      cin>>choice;
+
+      switch (choice) {
+        case 1:{
+          addNum();
+          break;
+        }
+        case 2:{
+          selectionSortLinklist();
+          display();
+          break;
+        }
+      }
+
+  }while(choice != 0);
+}
