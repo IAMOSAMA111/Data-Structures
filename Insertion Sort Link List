@@ -5,19 +5,12 @@ using namespace std;
 struct Node{
   int num;
   Node * nextlocation;
-  Node * previouslocation;
 }*head;
 void display(){
   Node * address = head;
   while(address != NULL){
     cout<<address->num<<endl;
     address = address->nextlocation;
-  }
-}
-void display2(Node * address){
-  while(address!=NULL){
-    cout<<address->num<<endl;
-    address  = address->previouslocation;
   }
 }
 
@@ -28,7 +21,6 @@ Node * addNum(){
   cout<<"Enter a number"<<endl;
   cin>>newNode->num;
   newNode->nextlocation= NULL;
-  newNode->previouslocation=NULL;
   if(head == NULL){
     head = newNode;
   }
@@ -38,10 +30,11 @@ Node * addNum(){
     }
     end= newNode;
     address->nextlocation=newNode;
-    newNode->previouslocation=address;
   }
     return end;
 }
+
+
 void InsertionSort() {
     if(head== NULL || (head)->nextlocation == NULL) {
         return;
