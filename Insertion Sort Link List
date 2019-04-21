@@ -1,0 +1,97 @@
+#include<iostream>
+using namespace std;
+
+
+struct Node{
+  int num;
+  Node * nextlocation;
+  Node * previouslocation;
+}*head;
+void display(){
+  Node * address = head;
+  while(address != NULL){
+    cout<<address->num<<endl;
+    address = address->nextlocation;
+  }
+}
+void display2(Node * address){
+  while(address!=NULL){
+    cout<<address->num<<endl;
+    address  = address->previouslocation;
+  }
+}
+
+Node * addNum(){
+  Node * address = head;
+  Node *newNode = new Node;
+  Node * end;
+  cout<<"Enter a number"<<endl;
+  cin>>newNode->num;
+  newNode->nextlocation= NULL;
+  newNode->previouslocation=NULL;
+  if(head == NULL){
+    head = newNode;
+  }
+  else{
+    while(address->nextlocation != NULL){
+      address=address->nextlocation;
+    }
+    end= newNode;
+    address->nextlocation=newNode;
+    newNode->previouslocation=address;
+  }
+    return end;
+}
+void InsertionSort() {
+    if(head== NULL || (head)->nextlocation == NULL) {
+        return;
+    }
+    Node *p = (head)->nextlocation;
+    while(p != NULL) {
+        int hold = p->num;
+        int found = 0;
+        Node *q = head;
+        while(q != p) {
+            if(q->num > p->num && found == 0) {
+                hold = q->num;
+                q->num = p->num;
+                found = 1;
+                q = q->nextlocation;
+            } else {
+                if(found == 1) {
+                    int temp = hold;
+                    hold = q->num;
+                    q->num = temp;
+                }
+                q = q->nextlocation;
+            }
+        }
+        q->num = hold;
+        p = p->nextlocation;
+    }
+}
+
+int main(){
+  int choice;
+
+  do{
+      cout<<"Enter 1 to add number"<<endl;
+      cout<<"Enter 2 to display number in sorting order"<<endl;
+      cout<<"Enter 0 to exit"<<endl;
+      cin>>choice;
+      Node * end;
+      bool flag = true;
+      switch (choice) {
+        case 1:{
+            end = addNum();
+          break;
+        }
+        case 2:{
+          InsertionSort();
+          display();
+          break;
+        }
+      }
+
+  }while(choice != 0);
+}
